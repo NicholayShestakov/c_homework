@@ -1,11 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int main()
 {
-    int n, m;
+    int n = 0, m = 0;
     scanf("%d %d", &n, &m);
 
-    int arr[n + m];
+    int* arr = calloc(n + m, sizeof(int));
     for (int i = 0; i < n + m; i++) {
         scanf("%d", &arr[i]);
     }
