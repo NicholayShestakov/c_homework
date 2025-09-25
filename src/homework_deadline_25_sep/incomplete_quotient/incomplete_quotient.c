@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int main()
 {
-    int a, b;
+    int a = 0, b = 0;
     scanf("%d %d", &a, &b);
 
     if (b == 0) {
@@ -10,15 +11,15 @@ int main()
         return 1;
     }
 
-    int absA = a > 0 ? a : -a;
-    int absB = b > 0 ? b : -b;
+    int absA = abs(a);
+    int absB = abs(b);
     int quotient = 0;
     while (absA >= absB) {
         quotient++;
         absA -= absB;
     }
 
-    if ((a < 0) != (b < 0)) {
+    if (a * b < 0) {
         quotient = -quotient;
         if (a - b * quotient < 0) {
             quotient--;
