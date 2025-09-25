@@ -2,7 +2,7 @@
 
 int main()
 {
-    float x;
+    float x = 0.0f;
     scanf("%f", &x);
     float t = x * x;
     float result = t * (t + x) + t + x + 1;
