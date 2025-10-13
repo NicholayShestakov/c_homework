@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Алгоритм гномьей сортировки. Принимает указатель на массив и длину массива.
 void gnomeSort(int* array, int size)
 {
     int current = 1;
