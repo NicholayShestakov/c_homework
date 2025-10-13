@@ -31,4 +31,6 @@ int main()
     } else {
         printf("String is not palindrome. \n");
     }
+
+    return 0;
 }
