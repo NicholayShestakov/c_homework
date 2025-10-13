@@ -2,9 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 
-int main()
+bool palindromeCheck(char* str)
 {
-    const char str[] = "Lorem m e r o L";
     int startPointer = 0;
     int endPointer = strlen(str) - 1;
     bool isPalindrome = true;
@@ -26,11 +25,20 @@ int main()
         endPointer--;
     }
 
-    if (isPalindrome) {
-        printf("String is palindrome. \n");
-    } else {
-        printf("String is not palindrome. \n");
-    }
+    return isPalindrome;
+}
+
+int main()
+{
+    char str[] = "Lorem m e r o L";
+    char str2[] = "Lorem ipsum";
+    char str3[] = "";
+    char str4[] = "1";
+
+    printf("%s - %d \n", str, palindromeCheck(str));
+    printf("%s - %d \n", str2, palindromeCheck(str2));
+    printf("%s - %d \n", str3, palindromeCheck(str3));
+    printf("%s - %d \n", str4, palindromeCheck(str4));
 
     return 0;
 }
