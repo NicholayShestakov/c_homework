@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
+// Проверка на палиндром. Принимает указатель на строку. Возвращает булево значение.
 bool palindromeCheck(char* str)
 {
     int startPointer = 0;
