@@ -32,7 +32,6 @@ void push(Stack* stack, int value)
 int pop(Stack* stack)
 {
     if (stack->head == NULL) {
-        printf("The stack is empty. \n");
         return -1;
     }
 
