@@ -1,80 +1,79 @@
 #include "stack.h"
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 
 bool isBracket(char c)
 {
-    if (c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}') {
-        return true;
-    }
-    return false;
+    return (c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}');
 }
 
-// Saves opening brackets in stack. Deletes pairs.
-// Takes bracket symbol and pointer on the bracket stack.
-// Returns true if brackets closes right or opens. Else returns false.
-bool bracketProcessing(char bracket, Stack* bracketStack)
+// Checks brackets balance.
+// Returns true if brackets balanced and false if not.
+// Takes string.
+bool isBracketsBalanced(char* string)
 {
-    if (bracket == '(') {
-        push(bracketStack, 1);
-    }
-    if (bracket == '[') {
-        push(bracketStack, 2);
-    }
-    if (bracket == '{') {
-        push(bracketStack, 3);
-    }
-    if (bracket == ')') {
-        if (pop(bracketStack) != 1) {
-            return false;
+    int size = strlen(string);
+    Stack* brackets = newStack();
+
+    for (int i = 0; i < size; i++) {
+        // If char is opening bracket, pushes individual for all bracket types number in the stack.
+        // If char is closing bracket, pops number from the stack. If number is not right, returns false.
+        if (isBracket(string[i])) {
+            if (string[i] == '(') {
+                push(brackets, 1);
+            }
+            if (string[i] == '[') {
+                push(brackets, 2);
+            }
+            if (string[i] == '{') {
+                push(brackets, 3);
+            }
+            if (string[i] == ')') {
+                if (pop(brackets) != 1) {
+                    deleteStack(brackets);
+                    return false;
+                }
+            }
+            if (string[i] == ']') {
+                if (pop(brackets) != 2) {
+                    deleteStack(brackets);
+                    return false;
+                }
+            }
+            if (string[i] == '}') {
+                if (pop(brackets) != 3) {
+                    deleteStack(brackets);
+                    return false;
+                }
+            }
         }
     }
-    if (bracket == ']') {
-        if (pop(bracketStack) != 2) {
-            return false;
-        }
+    // Check for all brackets closed.
+    if (pop(brackets) != -1) {
+        deleteStack(brackets);
+        return false;
     }
-    if (bracket == '}') {
-        if (pop(bracketStack) != 3) {
-            return false;
-        }
-    }
+
+    deleteStack(brackets);
     return true;
 }
 
 int main()
 {
-    int size = 0;
-    printf("Input size of string: ");
-    scanf("%d", &size);
+    char a[] = "T(e){s}[t]";
+    char b[] = "123";
+    char c[] = "";
+    char d[] = "(";
+    char e[] = "({a)}";
+    char f[] = "((({{{[[[]]]}}})))";
 
-    Stack* bracketStack = newStack();
-    char currentChar = 0;
-    // Костыль для избавления от символа переноса строки после ввода размера.
-    scanf("%c", &currentChar);
-    bool isBalanced = true;
-    printf("Input string: ");
-    for (int i = 0; i < size; i++) {
-        scanf("%c", &currentChar);
-        if (isBracket(currentChar)) {
-            isBalanced = bracketProcessing(currentChar, bracketStack);
-            if (!isBalanced) {
-                break;
-            }
-        }
-    }
-    // Проверка, что не осталось незакрытых скобок.
-    if (pop(bracketStack) != -1) {
-        isBalanced = false;
-    }
-
-    if (isBalanced) {
-        printf("Brackets balanced. \n");
-    } else {
-        printf("Brackets not balanced. \n");
-    }
-
-    deleteStack(bracketStack);
+    printf("%s - %d\n", a, isBracketsBalanced(a));
+    printf("%s - %d\n", b, isBracketsBalanced(b));
+    printf("%s - %d\n", c, isBracketsBalanced(c));
+    printf("%s - %d\n", d, isBracketsBalanced(d));
+    printf("%s - %d\n", e, isBracketsBalanced(e));
+    printf("%s - %d\n", f, isBracketsBalanced(f));
 
     return 0;
 }
