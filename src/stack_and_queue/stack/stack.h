@@ -1,13 +1,8 @@
 #pragma once
 
-typedef struct StackNode {
-    int value;
-    struct StackNode* next;
-} StackNode;
+typedef struct StackNode StackNode;
 
-typedef struct Stack {
-    StackNode* head;
-} Stack;
+typedef struct Stack Stack;
 
 // Creates new stack.
 // Returns pointer on the created stack.
@@ -26,7 +21,7 @@ void push(Stack* stack, int value);
 // If the stack is empty returns -1.
 int pop(Stack* stack);
 
-// Prints the top value of the stack.
+// Returns the top value of the stack.
 // Takes pointer on the stack.
-// Prints message if the stack is empty.
-void peek(Stack* stack);
+// If the stack is empty returns -1.
+int peek(Stack* stack);
