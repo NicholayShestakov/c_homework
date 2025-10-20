@@ -3,9 +3,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct StackNode {
+    int value;
+    struct StackNode* next;
+} StackNode;
+
+typedef struct Stack {
+    StackNode* head;
+} Stack;
+
 Stack* newStack()
 {
-    Stack* stack = malloc(sizeof(Stack));
+    Stack* stack = malloc(sizeof(*stack));
     stack->head = NULL;
     return stack;
 }
@@ -23,7 +32,7 @@ void deleteStack(Stack* stack)
 
 void push(Stack* stack, int value)
 {
-    StackNode* newNode = malloc(sizeof(StackNode));
+    StackNode* newNode = malloc(sizeof(*newNode));
     newNode->value = value;
     newNode->next = stack->head;
     stack->head = newNode;
@@ -42,12 +51,11 @@ int pop(Stack* stack)
     return value;
 }
 
-void peek(Stack* stack)
+int peek(Stack* stack)
 {
     if (stack->head == NULL) {
-        printf("The stack is empty. \n");
-        return;
+        return -1;
     }
 
-    printf("The highest element: %d \n", stack->head->value);
+    return stack->head->value;
 }
