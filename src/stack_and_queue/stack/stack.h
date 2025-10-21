@@ -2,8 +2,6 @@
 
 #include <stdbool.h>
 
-typedef struct StackNode StackNode;
-
 typedef struct Stack Stack;
 
 // Creates new stack.
