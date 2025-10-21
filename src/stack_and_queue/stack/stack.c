@@ -9,9 +9,9 @@ typedef struct StackNode {
     struct StackNode* next;
 } StackNode;
 
-typedef struct Stack {
+struct Stack {
     StackNode* head;
-} Stack;
+};
 
 Stack* newStack()
 {
