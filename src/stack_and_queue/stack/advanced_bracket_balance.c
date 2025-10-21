@@ -50,7 +50,7 @@ bool isBracketsBalanced(char* string)
         }
     }
     // Check for all brackets closed.
-    if (pop(brackets) != -1) {
+    if (isEmpty(brackets)) {
         deleteStack(brackets);
         return false;
     }
