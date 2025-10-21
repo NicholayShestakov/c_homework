@@ -1,5 +1,6 @@
 #include "stack.h"
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -21,11 +22,8 @@ Stack* newStack()
 
 void deleteStack(Stack* stack)
 {
-    StackNode* highest = stack->head;
-    while (highest != NULL) {
-        StackNode* newHighest = highest->next;
-        free(highest);
-        highest = newHighest;
+    while (stack->head != NULL) {
+        pop(stack);
     }
     free(stack);
 }
@@ -40,7 +38,7 @@ void push(Stack* stack, int value)
 
 int pop(Stack* stack)
 {
-    if (stack->head == NULL) {
+    if (isEmpty(stack)) {
         return -1;
     }
 
@@ -53,9 +51,14 @@ int pop(Stack* stack)
 
 int peek(Stack* stack)
 {
-    if (stack->head == NULL) {
+    if (isEmpty(stack)) {
         return -1;
     }
 
     return stack->head->value;
+}
+
+bool isEmpty(Stack* stack)
+{
+    return stack->head == NULL;
 }
