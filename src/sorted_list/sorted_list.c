@@ -111,3 +111,23 @@ void printList(List *list)
     }
     printf("\n");
 }
+
+int *getListAsArray(List *list)
+{
+    ListElement *currentElement = list->head;
+    int size = 0;
+    while (currentElement != NULL) {
+        ++size;
+        currentElement = currentElement->next;
+    }
+
+    int *array = malloc(sizeof(array) * (size + 1));
+    array[0] = size;
+    currentElement = list->head;
+    for (int i = 1; i <= size; ++i) {
+        array[i] = currentElement->value;
+        currentElement = currentElement->next;
+    }
+
+    return array;
+}
