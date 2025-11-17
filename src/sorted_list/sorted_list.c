@@ -16,6 +16,9 @@ struct List {
 List *createList()
 {
     List *list = calloc(1, sizeof(*list));
+    if (list == NULL) {
+        printf("Memory error. Array is not created.\n");
+    }
     return list;
 }
 
@@ -32,8 +35,13 @@ void deleteList(List *list)
 
 void appendValue(List *list, int value)
 {
+    ListElement *newElement = malloc(sizeof(*newElement));
+    if (newElement == NULL) {
+        printf("Memory error. Value is not appended.\n");
+        return;
+    }
+
     if (list->head == NULL) {
-        ListElement *newElement = malloc(sizeof(*newElement));
         newElement->value = value;
         newElement->next = NULL;
         list->head = newElement;
@@ -41,14 +49,12 @@ void appendValue(List *list, int value)
         return;
     }
     if (value <= list->head->value) {
-        ListElement *newElement = malloc(sizeof(*newElement));
         newElement->value = value;
         newElement->next = list->head;
         list->head = newElement;
         return;
     }
     if (list->tail->value <= value) {
-        ListElement *newElement = malloc(sizeof(*newElement));
         newElement->value = value;
         newElement->next = NULL;
         list->tail->next = newElement;
@@ -61,7 +67,6 @@ void appendValue(List *list, int value)
         currentElement = currentElement->next;
     }
 
-    ListElement *newElement = malloc(sizeof(*newElement));
     newElement->value = value;
     newElement->next = currentElement->next;
     currentElement->next = newElement;
@@ -80,7 +85,7 @@ void deleteValue(List *list, int value)
         return;
     }
     if (list->tail->value < value) {
-        printf("The list not contains this value. \n");
+        printf("The list is not contains this value. \n");
         return;
     }
 
@@ -94,7 +99,7 @@ void deleteValue(List *list, int value)
         }
     }
 
-    printf("The list not contains this value. \n");
+    printf("The list is not contains this value. \n");
 }
 
 void printList(List *list)
