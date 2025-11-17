@@ -22,3 +22,9 @@ void deleteValue(List *list, int value);
 // Prints the list.
 // Takes pointer on the sorted list.
 void printList(List *list);
+
+// Gets the list as array with size at the first element.
+// Returns pointer on array.
+// Takes pointer on the sorted list.
+// Use for tests only. Please, don`t touch for any other things.
+int *getListAsArray(List *list);
