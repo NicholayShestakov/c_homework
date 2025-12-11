@@ -1,5 +1,6 @@
 #include "stack.h"
 
+#include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,14 +16,14 @@ struct Stack {
 
 Stack* newStack()
 {
-    Stack* stack = malloc(sizeof(*stack));
-    stack->head = NULL;
+    Stack* stack = calloc(1, sizeof(*stack));
+    assert(stack != NULL && "Error! Memory allocated incorrect.");
     return stack;
 }
 
 void deleteStack(Stack* stack)
 {
-    while (stack->head != NULL) {
+    while (!isEmpty(stack)) {
         pop(stack);
     }
     free(stack);
@@ -31,6 +32,7 @@ void deleteStack(Stack* stack)
 void push(Stack* stack, int value)
 {
     StackNode* newNode = malloc(sizeof(*newNode));
+    assert(newNode != NULL && "Error! Memory allocated incorrect.");
     newNode->value = value;
     newNode->next = stack->head;
     stack->head = newNode;
@@ -38,10 +40,7 @@ void push(Stack* stack, int value)
 
 int pop(Stack* stack)
 {
-    if (isEmpty(stack)) {
-        return -1;
-    }
-
+    assert(!isEmpty(stack) && "Error! Stack is empty. Can`t pop value.");
     StackNode* poppedNode = stack->head;
     int value = poppedNode->value;
     stack->head = poppedNode->next;
@@ -51,10 +50,7 @@ int pop(Stack* stack)
 
 int peek(Stack* stack)
 {
-    if (isEmpty(stack)) {
-        return -1;
-    }
-
+    assert(!isEmpty(stack) && "Error! Stack is empty. Can`t peek value.");
     return stack->head->value;
 }
 
