@@ -9,3 +9,9 @@
 Основная почта: nicholas.shestakov@gmail.com
 
 Телеграм: @Kolya_shesterka
+
+## Инструкции по сборке:
+```console
+$ cmake . -B build
+$ cmake --build build
+```
