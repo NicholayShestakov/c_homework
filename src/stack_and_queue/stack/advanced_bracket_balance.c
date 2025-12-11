@@ -1,11 +1,17 @@
 #include "stack.h"
+#include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 
-bool isBracket(char c)
+bool isOpeningBracket(char c)
 {
-    return (c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}');
+    return (c == '(' || c == '[' || c == '{');
+}
+
+bool isClosingBracket(char c)
+{
+    return (c == ')' || c == ']' || c == '}');
 }
 
 // Checks brackets balance.
@@ -17,39 +23,33 @@ bool isBracketsBalanced(char* string)
     Stack* brackets = newStack();
 
     for (int i = 0; i < size; i++) {
-        // If char is opening bracket, pushes individual for all bracket types number in the stack.
-        // If char is closing bracket, pops number from the stack. If number is not right, returns false.
-        if (isBracket(string[i])) {
-            if (string[i] == '(') {
-                push(brackets, 1);
+        if (isOpeningBracket(string[i])) {
+            push(brackets, string[i]);
+        }
+        if (isClosingBracket(string[i])) {
+            if (isEmpty(brackets)) {
+                return false;
             }
-            if (string[i] == '[') {
-                push(brackets, 2);
+
+            bool isClosed = false;
+            switch (pop(brackets)) {
+            case '(':
+                isClosed = string[i] == ')';
+                break;
+            case '[':
+                isClosed = string[i] == ']';
+                break;
+            case '{':
+                isClosed = string[i] == '}';
+                break;
             }
-            if (string[i] == '{') {
-                push(brackets, 3);
-            }
-            if (string[i] == ')') {
-                if (pop(brackets) != 1) {
-                    deleteStack(brackets);
-                    return false;
-                }
-            }
-            if (string[i] == ']') {
-                if (pop(brackets) != 2) {
-                    deleteStack(brackets);
-                    return false;
-                }
-            }
-            if (string[i] == '}') {
-                if (pop(brackets) != 3) {
-                    deleteStack(brackets);
-                    return false;
-                }
+
+            if (!isClosed) {
+                return false;
             }
         }
     }
-    // Check for all brackets closed.
+    // Check for unclosed brackets.
     if (!isEmpty(brackets)) {
         deleteStack(brackets);
         return false;
@@ -61,19 +61,13 @@ bool isBracketsBalanced(char* string)
 
 int main()
 {
-    char a[] = "T(e){s}[t]";
-    char b[] = "123";
-    char c[] = "";
-    char d[] = "(";
-    char e[] = "({a)}";
-    char f[] = "((({{{[[[]]]}}})))";
-
-    printf("%s - %d\n", a, isBracketsBalanced(a));
-    printf("%s - %d\n", b, isBracketsBalanced(b));
-    printf("%s - %d\n", c, isBracketsBalanced(c));
-    printf("%s - %d\n", d, isBracketsBalanced(d));
-    printf("%s - %d\n", e, isBracketsBalanced(e));
-    printf("%s - %d\n", f, isBracketsBalanced(f));
+    assert(isBracketsBalanced("T(e){s}[t]") && "Test failed.");
+    assert(isBracketsBalanced("123") && "Test failed.");
+    assert(isBracketsBalanced("") && "Test failed.");
+    assert(!isBracketsBalanced("(") && "Test failed.");
+    assert(!isBracketsBalanced("({a)}") && "Test failed.");
+    assert(isBracketsBalanced("((({{{[[[]]]}}})))") && "Test failed.");
+    printf("All tests successfully passed.\n");
 
     return 0;
 }
