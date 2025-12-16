@@ -28,6 +28,7 @@ bool isBracketsBalanced(char* string)
         }
         if (isClosingBracket(string[i])) {
             if (isEmpty(brackets)) {
+                deleteStack(brackets);
                 return false;
             }
 
@@ -45,6 +46,7 @@ bool isBracketsBalanced(char* string)
             }
 
             if (!isClosed) {
+                deleteStack(brackets);
                 return false;
             }
         }
