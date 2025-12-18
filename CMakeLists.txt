@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.25)
+project(C_homework C)
+add_compile_options(-Wall -Wextra -pedantic)
 
-# Hello World
-project(hello_world C)
+# Libraries
 
+# Executables and links with libraries
 add_executable(hello_world src/hello_world/hello_world.c)
-target_compile_options(hello_world PRIVATE -Wall -Wextra -pedantic)
