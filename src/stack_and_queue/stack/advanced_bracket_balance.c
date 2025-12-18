@@ -51,14 +51,10 @@ bool isBracketsBalanced(char* string)
             }
         }
     }
-    // Check for unclosed brackets.
-    if (!isEmpty(brackets)) {
-        deleteStack(brackets);
-        return false;
-    }
 
+    bool isAllClosed = isEmpty(brackets);
     deleteStack(brackets);
-    return true;
+    return isAllClosed;
 }
 
 int main()
