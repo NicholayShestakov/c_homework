@@ -55,7 +55,7 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-#CMake
+# CMake
 build
 
 # End of https://www.toptal.com/developers/gitignore/api/c
