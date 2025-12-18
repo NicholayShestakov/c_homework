@@ -18,3 +18,9 @@ add_executable(massive_reroll src/homework_deadline_25_sep/massive_reroll/massiv
 
 add_executable(sorting_station src/stack_and_queue/stack/sorting_station.c)
 target_link_libraries(sorting_station PRIVATE stack)
+
+add_executable(number_of_zero_elements src/compilation_process/number_of_zero_elements/number_of_zero_elements.c)
+
+add_executable(simple_bracket_balance src/compilation_process/simple_bracket_balance/simple_bracket_balance.c)
+
+add_executable(search_for_a_substring src/compilation_process/search_for_a_substring/search_for_a_substring.c)
